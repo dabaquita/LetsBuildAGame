@@ -19,6 +19,8 @@ public class EnemyBossBullet extends GameObject
     public EnemyBossBullet(float x, float y, ID id, Handler handler)
     {
         super(x, y, id);
+        int velocity;
+        Random rand = new Random();
 
         this.handler = handler;
 
@@ -30,8 +32,13 @@ public class EnemyBossBullet extends GameObject
                 enemyBoss = object;
         }
 
-        velY = (player.getY() > enemyBoss.getY()) ? 2 : -2;
-        velX = new Random().nextInt(20) - 10;
+        // This makes it so that the bullets move towards
+        // the player's last location at the time of spawning
+        velocity = rand.nextInt(4);
+        velY = (player.getY() > enemyBoss.getY()) ? velocity : velocity - 4;
+
+        velocity = rand.nextInt(4);
+        velX = (player.getX() > enemyBoss.getX()) ? velocity : velocity - 4;
     }
 
     // Hit Box

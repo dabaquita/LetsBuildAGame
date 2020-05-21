@@ -8,5 +8,5 @@ Redone by Denielle Abaquita
 Purpose: Learn about setting up a Java game
          and learn about the concepts of game
          design.
-         
- ========================================
+
+========================================

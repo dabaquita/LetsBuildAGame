@@ -57,10 +57,8 @@ public class EnemyBoss extends GameObject
         {
             if (velX == 0) velX = 2;
 
-            int spawn = new Random().nextInt(10);
-
-            if (spawn == 0)
-                handler.addObject(new EnemyBossBullet((int) x, (int) y, ID.BasicEnemy, handler));
+            if (new Random().nextInt(10) == 0)
+                handler.addObject(new EnemyBossBullet((int) x + 48, (int) y + 48, ID.BasicEnemy, handler));
         }
 
         // Bounds
