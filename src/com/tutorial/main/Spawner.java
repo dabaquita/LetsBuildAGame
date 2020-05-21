@@ -3,7 +3,10 @@ package com.tutorial.main;
 // Denielle Abaquita
 // 4/27/20
 
+import com.tutorial.main.Enemies.BasicEnemy;
 import com.tutorial.main.Enemies.EnemyBoss;
+import com.tutorial.main.Enemies.FastEnemy;
+import com.tutorial.main.Enemies.SmartEnemy;
 import com.tutorial.main.GameObject.ID;
 import com.tutorial.main.UserInterface.HUD;
 
@@ -35,32 +38,33 @@ public class Spawner
 
             if (hud.getLevel() == 2)
             {
+                handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 16),
+                        rand.nextInt(Game.HEIGHT - 32),
+                        ID.GeneralEnemy, handler));
+                handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 16),
+                        rand.nextInt(Game.HEIGHT - 32),
+                        ID.GeneralEnemy, handler));
+            }
+            else if (hud.getLevel() == 3)
+            {
+                handler.addObject(new FastEnemy(rand.nextInt(Game.WIDTH - 16),
+                        rand.nextInt(Game.HEIGHT - 32),
+                        ID.GeneralEnemy, handler));
+            }
+            else if (hud.getLevel() == 4)
+            {
+                handler.addObject(new SmartEnemy(rand.nextInt(Game.WIDTH - 16),
+                        rand.nextInt(Game.HEIGHT - 32),
+                        ID.GeneralEnemy, handler));
+             }
+            else if (hud.getLevel() == 5)
+            {
+                handler.clearEnemies();
+                
                 handler.addObject(new EnemyBoss(rand.nextInt(Game.WIDTH - 96),
                         rand.nextInt(Game.HEIGHT - 96),
                         ID.EnemyBoss, handler));
             }
-
-//            if (hud.getLevel() == 2)
-//            {
-//                handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 16),
-//                        rand.nextInt(Game.HEIGHT - 32),
-//                        ID.BasicEnemy, handler));
-//                handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 16),
-//                        rand.nextInt(Game.HEIGHT - 32),
-//                        ID.BasicEnemy, handler));
-//            }
-//            else if (hud.getLevel() == 3)
-//            {
-//                handler.addObject(new FastEnemy(rand.nextInt(Game.WIDTH - 16),
-//                        rand.nextInt(Game.HEIGHT - 32),
-//                        ID.FastEnemy, handler));
-//            }
-//            else if (hud.getLevel() == 4)
-//            {
-//                handler.addObject(new SmartEnemy(rand.nextInt(Game.WIDTH - 16),
-//                        rand.nextInt(Game.HEIGHT - 32),
-//                        ID.SmartEnemy, handler));
-//             }
         }
     }
 }

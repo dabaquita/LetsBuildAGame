@@ -57,8 +57,7 @@ public class Player extends GameObject
         {
             ID id = object.getId();
             
-            if (id == ID.BasicEnemy || id == ID.FastEnemy
-                || id == ID.SmartEnemy || id == ID.EnemyBoss)
+            if (id == ID.GeneralEnemy || id == ID.EnemyBoss)
             {
                 // Collision code for enemy
                 if (getBounds().intersects(object.getBounds()))

@@ -6,6 +6,7 @@ package com.tutorial.main;
 // Updates and renders all objects in the room
 
 import com.tutorial.main.GameObject.GameObject;
+import com.tutorial.main.GameObject.ID;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -36,5 +37,10 @@ public class Handler
     public void removeObject(GameObject gameObject)
     {
         this.objects.remove(gameObject);
+    }
+
+    public void clearEnemies()
+    {
+        objects.removeIf(object -> object.getId() == ID.GeneralEnemy);
     }
 }

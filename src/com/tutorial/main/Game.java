@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable
 
         // Player and Enemies
         handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-        handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.BasicEnemy, handler));
+        handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
     }
 
     public synchronized void start()
