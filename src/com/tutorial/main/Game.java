@@ -7,6 +7,7 @@ import com.tutorial.main.Enemies.BasicEnemy;
 import com.tutorial.main.GameObject.ID;
 import com.tutorial.main.UserInterface.HUD;
 import com.tutorial.main.UserInterface.KeyInput;
+import com.tutorial.main.UserInterface.Menu;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -24,12 +25,29 @@ public class Game extends Canvas implements Runnable
     private HUD hud;
     private Spawner spawner;
 
+    private Menu menu;
+
+    public enum STATE
+    {
+      Menu,
+        Help,
+        Game
+    };
+
+    public STATE gameState = STATE.Menu;
+
     // Initializing game elements
     public Game()
     {
         // Handler
         handler = new Handler();
+
+        // Menu
+        menu = new Menu(this, handler);
+
+        // Listeners
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
 
         // Window
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
@@ -40,9 +58,13 @@ public class Game extends Canvas implements Runnable
         // Spawner
         spawner = new Spawner(handler, hud);
 
-        // Player and Enemies
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-        handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
+        // Let's start spawning the game objects
+        if (gameState == STATE.Game)
+        {
+            // Player and Enemies
+            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+            handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
+        }
     }
 
     public synchronized void start()
@@ -112,8 +134,18 @@ public class Game extends Canvas implements Runnable
     private void tick()
     {
         handler.tick();
-        hud.tick();
-        spawner.tick();
+
+        // If we are in the Game state, then let's
+        // start ticking the actual game
+        if (gameState == STATE.Game)
+        {
+            hud.tick();
+            spawner.tick();
+        }
+        else if (gameState == STATE.Menu)
+        {
+            menu.tick();
+        }
     }
 
     // Renders the game graphics
@@ -134,7 +166,17 @@ public class Game extends Canvas implements Runnable
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
-        hud.render(g);
+
+        // If we are in the Game state, then let's
+        // render the player HUD
+        if (gameState == STATE.Game)
+        {
+            hud.render(g);
+        }
+        else if (gameState == STATE.Menu || gameState == STATE.Help)
+        {
+            menu.render(g);
+        }
 
         g.dispose();
         bs.show();

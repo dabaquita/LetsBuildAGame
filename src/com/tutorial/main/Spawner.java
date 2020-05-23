@@ -60,7 +60,7 @@ public class Spawner
             else if (hud.getLevel() == 5)
             {
                 handler.clearEnemies();
-                
+
                 handler.addObject(new EnemyBoss(rand.nextInt(Game.WIDTH - 96),
                         rand.nextInt(Game.HEIGHT - 96),
                         ID.EnemyBoss, handler));
