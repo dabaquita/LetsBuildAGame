@@ -16,14 +16,12 @@ public class MenuParticle extends GameObject
     private Handler handler;
     private Random rand = new Random();
     private Color col;
-    private int dir = 0;
 
     public MenuParticle(float x, float y, ID id, Handler handler)
     {
         super(x, y, id);
 
         this.handler = handler;
-        dir = rand.nextInt(2);
 
         velX = rand.nextInt(10) - 5;
         velY = rand.nextInt(10) - 5;
