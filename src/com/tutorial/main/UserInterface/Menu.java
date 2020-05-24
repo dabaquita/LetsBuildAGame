@@ -36,6 +36,10 @@ public class Menu extends MouseAdapter
             {
                 game.gameState = Game.STATE.Game;
 
+                // Clear the particle effects
+                handler.objects.clear();
+
+                // Add in the Player and first enemy
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
                 handler.addObject(new BasicEnemy(Game.WIDTH / 2 + 32, Game.HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
             }

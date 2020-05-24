@@ -5,12 +5,14 @@ package com.tutorial.main;
 
 import com.tutorial.main.Enemies.BasicEnemy;
 import com.tutorial.main.GameObject.ID;
+import com.tutorial.main.GameObject.MenuParticle;
 import com.tutorial.main.UserInterface.HUD;
 import com.tutorial.main.UserInterface.KeyInput;
 import com.tutorial.main.UserInterface.Menu;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable
 {
@@ -64,6 +66,12 @@ public class Game extends Canvas implements Runnable
             // Player and Enemies
             handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
             handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
+        }
+        else
+        {
+            for (int i = 0; i < 10; i++)
+                handler.addObject(new MenuParticle(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT),
+                                                    ID.MenuParticle, handler));
         }
     }
 

@@ -5,5 +5,6 @@ public enum ID
     Player(),
     GeneralEnemy(),
     EnemyBoss(),
+    MenuParticle(),
     Trail()
 }
