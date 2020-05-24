@@ -28,25 +28,35 @@ public class Menu extends MouseAdapter
     {
         int mx = e.getX(), my = e.getY();
 
-        // Play Button
-        if (mouseOver(mx, my, 210, 150, 200, 64))
+        // Menu page button presses
+        if (game.gameState == Game.STATE.Menu)
         {
-            game.gameState = Game.STATE.Game;
+            // Play Button
+            if (mouseOver(mx, my, 210, 150, 200, 64))
+            {
+                game.gameState = Game.STATE.Game;
 
-            handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-            handler.addObject(new BasicEnemy(Game.WIDTH / 2 + 32, Game.HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new BasicEnemy(Game.WIDTH / 2 + 32, Game.HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
+            }
+
+            // Help Button
+            if (mouseOver(mx, my,210, 250, 200, 64))
+                game.gameState = Game.STATE.Help;
+
+            // Quit Button
+            if (mouseOver(mx, my, 210, 350, 200, 64))
+                System.exit(1);
         }
 
-        // Help Button
-        if (mouseOver(mx, my,210, 250, 200, 64))
+        // Help page button presses
+        else if (game.gameState == Game.STATE.Help)
         {
-            game.gameState = Game.STATE.Help;
-        }
-
-        // Quit Button
-        if (mouseOver(mx, my, 210, 350, 200, 64))
-        {
-            System.exit(1);
+            if (mouseOver(mx, my, 210, 350, 200, 64))
+            {
+                game.gameState = Game.STATE.Menu;
+                return;
+            }
         }
     }
 
@@ -66,6 +76,8 @@ public class Menu extends MouseAdapter
         return false;
     }
 
+    // This is a static page for the most part for now
+    // so we are not going to change values (calling tick method)
     public void tick()
     {
 
@@ -74,19 +86,19 @@ public class Menu extends MouseAdapter
     public void render(Graphics g)
     {
         // Bigger Font
-        Font font = new Font("arial", 1, 50);
+        Font titleFont = new Font("arial", 1, 50);
+
+        // Button Font
+        Font buttonFont = new Font("arial", 1, 30);
 
         if (game.gameState == Game.STATE.Menu)
         {
-            g.setFont(font);
+            g.setFont(titleFont);
             g.setColor(Color.white);
             g.drawString("Menu", 240, 100);
 
-            // Button Font
-            font = new Font("arial", 1, 30);
-
             // Play Button
-            g.setFont(font);
+            g.setFont(buttonFont);
             g.setColor(Color.white);
             g.drawString("Play", 280, 190);
 
@@ -94,7 +106,7 @@ public class Menu extends MouseAdapter
             g.drawRect(210, 150, 200, 64);
 
             // Help Button
-            g.setFont(font);
+            g.setFont(buttonFont);
             g.setColor(Color.white);
             g.drawString("Help", 280, 290);
 
@@ -102,7 +114,7 @@ public class Menu extends MouseAdapter
             g.drawRect(210, 250, 200, 64);
 
             // Quit Button
-            g.setFont(font);
+            g.setFont(buttonFont);
             g.setColor(Color.white);
             g.drawString("Quit", 280, 390);
 
@@ -112,11 +124,21 @@ public class Menu extends MouseAdapter
         else if (game.gameState == Game.STATE.Help)
         {
             // Help Label at Top
-            g.setFont(font);
+            g.setFont(titleFont);
             g.setColor(Color.white);
-            g.drawString("Help", 280, 100);
+            g.drawString("Help", 250, 100);
 
-            // Back Button
+            // Label
+            g.setFont(new Font("arial", 1, 20));
+            g.drawString("Use WASD keys to move player and dodge enemies", 80, 200);
+
+            // Back Button for Help
+            g.setFont(buttonFont);
+            g.setColor(Color.white);
+            g.drawString("Back", 270, 390);
+
+            g.setColor(Color.white);
+            g.drawRect(210, 350, 200, 64);
         }
     }
 }
