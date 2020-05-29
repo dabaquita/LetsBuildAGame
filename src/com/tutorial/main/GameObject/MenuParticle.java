@@ -26,6 +26,10 @@ public class MenuParticle extends GameObject
         velX = rand.nextInt(10) - 5;
         velY = rand.nextInt(10) - 5;
 
+        // Handles if velocities equal 0 at any point
+        velX = (velX == 0) ? 1 : velX;
+        velY = (velY == 0) ? 1 : velY;
+
         col = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
     }
 

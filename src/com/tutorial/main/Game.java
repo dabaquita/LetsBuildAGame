@@ -33,7 +33,8 @@ public class Game extends Canvas implements Runnable
     {
       Menu,
         Help,
-        Game
+        Game,
+        End
     };
 
     public STATE gameState = STATE.Menu;
@@ -60,19 +61,9 @@ public class Game extends Canvas implements Runnable
         // Spawner
         spawner = new Spawner(handler, hud);
 
-        // Let's start spawning the game objects
-        if (gameState == STATE.Game)
-        {
-            // Player and Enemies
-            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-            handler.addObject(new BasicEnemy(WIDTH / 2 + 32, HEIGHT / 2 + 32, ID.GeneralEnemy, handler));
-        }
-        else
-        {
-            for (int i = 0; i < 10; i++)
-                handler.addObject(new MenuParticle(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT),
-                                                    ID.MenuParticle, handler));
-        }
+        for (int i = 0; i < 10; i++)
+            handler.addObject(new MenuParticle(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT),
+                    ID.MenuParticle, handler));
     }
 
     public synchronized void start()
@@ -149,8 +140,21 @@ public class Game extends Canvas implements Runnable
         {
             hud.tick();
             spawner.tick();
+
+            // Game ends
+            if (hud.health <= 0)
+            {
+                HUD.health = 100;
+                handler.objects.clear();
+
+                for (int i = 0; i < 10; i++)
+                    handler.addObject(new MenuParticle(new Random().nextInt(Game.WIDTH), new Random().nextInt(Game.HEIGHT),
+                            ID.MenuParticle, handler));
+
+                gameState = STATE.End;
+            }
         }
-        else if (gameState == STATE.Menu)
+        else if (gameState == STATE.Menu || gameState == STATE.End)
         {
             menu.tick();
         }
@@ -181,7 +185,7 @@ public class Game extends Canvas implements Runnable
         {
             hud.render(g);
         }
-        else if (gameState == STATE.Menu || gameState == STATE.Help)
+        else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End)
         {
             menu.render(g);
         }
@@ -199,6 +203,12 @@ public class Game extends Canvas implements Runnable
             return val = min;
 
         return val;
+    }
+
+    // Returns the hud if we need it
+    public HUD getHud()
+    {
+        return this.hud;
     }
 
     // Main Method

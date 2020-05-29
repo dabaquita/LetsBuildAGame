@@ -6,12 +6,14 @@ package com.tutorial.main.UserInterface;
 import com.tutorial.main.Enemies.BasicEnemy;
 import com.tutorial.main.Game;
 import com.tutorial.main.GameObject.ID;
+import com.tutorial.main.GameObject.MenuParticle;
 import com.tutorial.main.Handler;
 import com.tutorial.main.Player;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 public class Menu extends MouseAdapter
 {
@@ -45,11 +47,11 @@ public class Menu extends MouseAdapter
             }
 
             // Help Button
-            if (mouseOver(mx, my,210, 250, 200, 64))
+            else if (mouseOver(mx, my,210, 250, 200, 64))
                 game.gameState = Game.STATE.Help;
 
             // Quit Button
-            if (mouseOver(mx, my, 210, 350, 200, 64))
+            else if (mouseOver(mx, my, 210, 350, 200, 64))
                 System.exit(1);
         }
 
@@ -59,7 +61,14 @@ public class Menu extends MouseAdapter
             if (mouseOver(mx, my, 210, 350, 200, 64))
             {
                 game.gameState = Game.STATE.Menu;
-                return;
+            }
+        }
+        // End page button presses
+        else if (game.gameState == Game.STATE.End)
+        {
+            if (mouseOver(mx, my, 210, 350, 200, 64))
+            {
+                game.gameState = Game.STATE.Menu;
             }
         }
     }
@@ -125,21 +134,21 @@ public class Menu extends MouseAdapter
             g.setColor(Color.white);
             g.drawRect(210, 350, 200, 64);
         }
-        else if (game.gameState == Game.STATE.Help)
+        else if (game.gameState == Game.STATE.End)
         {
             // Help Label at Top
             g.setFont(titleFont);
             g.setColor(Color.white);
-            g.drawString("Help", 250, 100);
+            g.drawString("Game Over", 180, 100);
 
             // Label
             g.setFont(new Font("arial", 1, 20));
-            g.drawString("Use WASD keys to move player and dodge enemies", 80, 200);
+            g.drawString("You lost with a score of: " + game.getHud().getScore(), 175, 200);
 
             // Back Button for Help
             g.setFont(buttonFont);
             g.setColor(Color.white);
-            g.drawString("Back", 270, 390);
+            g.drawString("Play Again", 235, 390);
 
             g.setColor(Color.white);
             g.drawRect(210, 350, 200, 64);
