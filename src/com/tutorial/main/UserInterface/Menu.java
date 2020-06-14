@@ -52,7 +52,9 @@ public class Menu extends MouseAdapter
 
             // Quit Button
             else if (mouseOver(mx, my, 210, 350, 200, 64))
+            {
                 System.exit(1);
+            }
         }
 
         // Help page button presses

@@ -10,3 +10,9 @@ Purpose: Learn about setting up a Java game
          design.
 
 ========================================
+
+Update: Done after Tutorial #10. Learned enough
+        about the basics. Now onto making
+        my own product, and possibly implementing
+        the next videos' concepts into actually
+        helping me achieve my own product.
